@@ -28,26 +28,23 @@
     >
       预览
     </button>
-    <button type="button" @click="exportJSON">导出JSON</button>
+    <button type="button" @click="exportJSON">导出 JSON</button>
+    <button type="button" @click="exportVueCode">导出 Vue</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useEditorStore } from "../stores/editor";
+import { generateVueCode } from "../utils/generateVueCode";
+import { downloadFile } from "../utils/downloadFile";
 const editor = useEditorStore();
 function exportJSON() {
   const json = JSON.stringify(editor.schema, null, 2);
-  const blob = new Blob([json], {
-    type: "application/json;charset=utf-8",
-  });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "lowcode-schema.json";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
+  downloadFile(json, "lowcode-schema.json", "application/json");
+}
+function exportVueCode() {
+  const code = generateVueCode(editor.schema);
+  downloadFile(code, "LowcodePage.vue", "text/plain");
 }
 </script>
 
