@@ -2,9 +2,9 @@
   <div class="editor-shell">
     <EditorToolbar></EditorToolbar>
     <div class="editor">
-      <MaterialPanel></MaterialPanel>
+      <MaterialPanel v-if="editor.mode !== 'preview'"></MaterialPanel>
       <EditorCanvas></EditorCanvas>
-      <PropertyPanel></PropertyPanel>
+      <PropertyPanel v-if="editor.mode !== 'preview'"></PropertyPanel>
     </div>
   </div>
 </template>
@@ -13,6 +13,8 @@ import EditorCanvas from "./components/EditorCanvas.vue";
 import EditorToolbar from "./components/EditorToolbar.vue";
 import MaterialPanel from "./components/MaterialPanel.vue";
 import PropertyPanel from "./components/PropertyPanel.vue";
+import { useEditorStore } from "./stores/editor";
+const editor = useEditorStore();
 </script>
 <style scoped>
 * {

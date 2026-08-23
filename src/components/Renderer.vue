@@ -4,8 +4,11 @@
     v-for="item in nodes"
     :key="item.id"
     class="node-wrap"
-    :class="{ selected: editor.selectedId === item.id }"
-    @click.stop="editor.selectNode(item.id)"
+    :class="{
+      editable: !editor.isPreview,
+      selected: !editor.isPreview && editor.selectedId === item.id,
+    }"
+    @click.stop="selectNode(item.id)"
   >
     <!-- 遍历schema 每个节点渲染成对应物料组件 -->
     <component :is="materials[item.type].component" v-bind="item.props" />
@@ -22,18 +25,24 @@ import { useEditorStore } from "../stores/editor";
 // 接收 ComponentSchema 类型的prop
 defineProps<{ nodes: ComponentSchema[] }>();
 const editor = useEditorStore();
+function selectNode(id: string) {
+  if (editor.isPreview) return;
+  editor.selectNode(id);
+}
 </script>
 
 <style scoped>
 .node-wrap {
   outline: 1px dashed transparent;
-  cursor: pointer;
   transition: outline-color 0.1s;
 }
-.node-wrap:hover {
+.node-wrap.editable {
+  cursor: pointer;
+}
+.node-wrap.editable:hover {
   outline-color: #bde0fe; /** 悬停浅蓝提示可点 */
 }
-.node-wrap.selected {
+.node-wrap.editable.selected {
   outline: 2px solid #2563eb; /**选中实蓝框 */
 }
 </style>

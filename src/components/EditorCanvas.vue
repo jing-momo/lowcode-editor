@@ -11,6 +11,7 @@ import Renderer from "./Renderer.vue";
 const editor = useEditorStore();
 
 function handleDragOver(event: DragEvent) {
+  if (editor.isPreview) return;
   // 取消浏览器默认的不允许复制的行为
   event.preventDefault();
   if (event.dataTransfer) {
@@ -19,6 +20,7 @@ function handleDragOver(event: DragEvent) {
   }
 }
 function handleDrop(event: DragEvent) {
+  if (editor.isPreview) return;
   event.preventDefault();
   if (!event.dataTransfer) return;
   const type = event.dataTransfer.getData("text/plain");

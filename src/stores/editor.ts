@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import type { ComponentSchema } from "../materials/types";
 import { materials } from "../materials";
 export type MoveDirection = "up" | "down";
+export type EditorMode = "edit" | "preview";
 interface Command {
   execute(): void;
   undo(): void;
@@ -29,13 +30,20 @@ export const useEditorStore = defineStore("editor", () => {
   const selectedNode = computed(
     () => schema.value.find((i) => i.id === selectedId.value) ?? null,
   );
-
+  const mode = ref<EditorMode>("edit");
+  const isPreview = computed(() => mode.value === "preview");
   // 建立两个栈存放撤销或者重做的操作
   const undoStack = ref<Command[]>([]);
   const redoStack = ref<Command[]>([]);
   const canUndo = computed(() => undoStack.value.length > 0);
   const canRedo = computed(() => redoStack.value.length > 0);
-
+  // 设置方式
+  function setMode(newMode: EditorMode) {
+    mode.value = newMode;
+    if (newMode === "preview") {
+      selectedId.value = null;
+    }
+  }
   // 点击选中
   function selectNode(id: string) {
     selectedId.value = id;
@@ -174,5 +182,8 @@ export const useEditorStore = defineStore("editor", () => {
     addNode,
     deleteNode,
     moveNode,
+    mode,
+    isPreview,
+    setMode,
   };
 });
