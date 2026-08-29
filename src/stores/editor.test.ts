@@ -1,11 +1,21 @@
 import { createPinia, setActivePinia } from "pinia";
 import { useEditorStore } from "./editor";
 import { beforeEach, describe, expect, it } from "vitest";
+import heroUrl from "../assets/hero.png";
 
 describe("editor store", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
+
+  it("默认图片使用 Vite 导入的资源地址", () => {
+    const editor = useEditorStore();
+
+    const imageNode = editor.schema.find((item) => item.type === "image");
+
+    expect(imageNode?.props.src).toBe(heroUrl);
+  });
+
   it("添加节点后可以撤销和重做， 并复用同一个ID", () => {
     const editor = useEditorStore();
     const initialIds = editor.schema.map((item) => item.id);

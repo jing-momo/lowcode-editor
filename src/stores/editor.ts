@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import type { ComponentSchema } from "../materials/types";
 import { materials } from "../materials";
 import { createBenchmarkSchema } from "../utils/createBenchmarkSchema";
+import heroUrl from "../assets/hero.png";
 export type MoveDirection = "up" | "down";
 export type EditorMode = "edit" | "preview";
 interface Command {
@@ -22,7 +23,7 @@ export const useEditorStore = defineStore("editor", () => {
     {
       id: "3",
       type: "image",
-      props: { src: "src/assets/hero.png", width: 120 },
+      props: { src: heroUrl, width: 120 },
     },
   ]);
   // 当前选中组件的id
