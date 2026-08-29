@@ -6,6 +6,10 @@
 
 在线 Demo：[https://jing-momo.github.io/lowcode-editor/](https://jing-momo.github.io/lowcode-editor/)
 
+## 项目演示
+
+![低代码编辑器核心操作演示](docs/assets/lowcode-editor-demo.gif)
+
 ## 已实现功能
 
 - 三栏编辑器布局：物料区、画布区、属性配置区
@@ -386,4 +390,4 @@ Store 测试在每条用例前创建新的 Pinia，避免 Schema 和命令历史
 - [ ] 增加组件级测试和浏览器 E2E
 - [ ] 使用 Pointer Events 支持移动端
 - [x] 配置 CI 和 GitHub Pages 在线 demo
-- [ ] 补充演示 GIF
+- [x] 补充演示 GIF
