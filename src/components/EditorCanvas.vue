@@ -32,6 +32,8 @@ function handleDrop(event: DragEvent) {
 <style scoped>
 .editor-canvas {
   flex: 1;
+  min-width: 0;
+  overflow: auto;
   background-color: #fff;
   padding: 16px;
 }

@@ -17,7 +17,7 @@ function renderNode(node: ComponentSchema): string {
     case "image":
       return `    <img src="${escapeHtml(node.props.src)}" style="width:${escapeHtml(node.props.width)}px" />`;
     default:
-      return `    <!-- 未知物料-->`;
+      return `    <!-- 未知物料 -->`;
   }
 }
 

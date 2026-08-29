@@ -3,6 +3,7 @@
   <div
     v-for="item in nodes"
     :key="item.id"
+    v-memo="[item.props, editor.selectedId === item.id, editor.isPreview]"
     class="node-wrap"
     :class="{
       editable: !editor.isPreview,

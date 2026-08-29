@@ -30,6 +30,9 @@
     </button>
     <button type="button" @click="exportJSON">导出 JSON</button>
     <button type="button" @click="exportVueCode">导出 Vue</button>
+    <button v-if="isDev" type="button" @click="editor.loadBenchmarkSchema()">
+      加载1000节点
+    </button>
   </div>
 </template>
 
@@ -38,6 +41,7 @@ import { useEditorStore } from "../stores/editor";
 import { generateVueCode } from "../utils/generateVueCode";
 import { downloadFile } from "../utils/downloadFile";
 const editor = useEditorStore();
+const isDev = import.meta.env.DEV;
 function exportJSON() {
   const json = JSON.stringify(editor.schema, null, 2);
   downloadFile(json, "lowcode-schema.json", "application/json");

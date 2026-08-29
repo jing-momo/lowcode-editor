@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import type { ComponentSchema } from "../materials/types";
 import { materials } from "../materials";
+import { createBenchmarkSchema } from "../utils/createBenchmarkSchema";
 export type MoveDirection = "up" | "down";
 export type EditorMode = "edit" | "preview";
 interface Command {
@@ -167,6 +168,14 @@ export const useEditorStore = defineStore("editor", () => {
     command.execute();
     undoStack.value.push(command);
   }
+  // 创建大量节点做性能测试
+  function loadBenchmarkSchema(count = 1000) {
+    if (!import.meta.env.DEV) return;
+    schema.value = createBenchmarkSchema(count);
+    selectedId.value = null;
+    undoStack.value = [];
+    redoStack.value = [];
+  }
   // 撤销
   return {
     canUndo,
@@ -185,5 +194,6 @@ export const useEditorStore = defineStore("editor", () => {
     mode,
     isPreview,
     setMode,
+    loadBenchmarkSchema,
   };
 });
