@@ -4,6 +4,8 @@
 
 项目使用 Schema 作为画布的单一数据源，通过物料注册表和动态组件完成渲染，并使用命令模式实现添加、删除、移动、属性修改等操作的撤销与重做。
 
+在线 Demo：[https://jing-momo.github.io/lowcode-editor/](https://jing-momo.github.io/lowcode-editor/)
+
 ## 已实现功能
 
 - 三栏编辑器布局：物料区、画布区、属性配置区
@@ -368,8 +370,11 @@ Store 测试在每条用例前创建新的 Pinia，避免 Schema 和命令历史
 - 撤销与重做历史栈尚未限长
 - Vue 导出器只覆盖当前 3 种物料
 - 尚未实现 Schema 运行时校验和版本迁移
-- 尚未实现在线 demo、CI 和自动部署
 - HTML5 Drag API 不直接支持移动端触摸操作
+
+## 自动部署
+
+推送到 `main` 分支时，GitHub Actions 会依次安装依赖、运行测试、执行生产构建，并在全部通过后将 `dist` 发布到 GitHub Pages。也可以在 Actions 页面手动触发部署。
 
 ## Roadmap
 
@@ -380,5 +385,5 @@ Store 测试在每条用例前创建新的 Pinia，避免 Schema 和命令历史
 - [ ] 增加 Schema 运行时校验与版本号
 - [ ] 增加组件级测试和浏览器 E2E
 - [ ] 使用 Pointer Events 支持移动端
-- [ ] 配置 CI 和 GitHub Pages 在线 demo
+- [x] 配置 CI 和 GitHub Pages 在线 demo
 - [ ] 补充演示 GIF
